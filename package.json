@@ -1,0 +1,15 @@
+{
+  "name": "dht_sensor_exporter",
+  "version": "0.0.1",
+  "description": "prometheus exporter for dht sensor information",
+  "main": "index.js",
+  "type": "module",
+  "author": "Alex Vernacchia",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "express": "^4.18.1",
+    "node-dht-sensor": "^0.4.3",
+    "prom-client": "^14.1.0"
+  }
+}
