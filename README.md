@@ -19,6 +19,17 @@ sudo mv dht_sensor_exporter-v0.15.0-linux-armv7 dht_sensor_exporter
 sudo chmod +x ./dht_sensor_exporter
 ```
 
+### Flags
+
+| Flag              | Description                                                    | Default    |
+| ----------------- | -------------------------------------------------------------- | ---------- |
+| `-listen-address` | Port the exporter will listen on                               | `9876`     |
+| `-metrics-path`   | URL path where metrics are exported                            | `/metrics` |
+| `-sensor-type`    | Sensor type to read from ("DHT11", "DHT12", "DHT22", "AM2302") | `DHT11`    |
+| `pin`             | GPIO board pin to read sensor info from                        | `4`        |
+
+### Systemd Setup
+
 I would suggest setting up a systemd service and running it under it's own user
 
 **Create User**
