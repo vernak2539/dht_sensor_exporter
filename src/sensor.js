@@ -1,13 +1,16 @@
 import sensor from "node-dht-sensor";
 
-sensor.initialize({
-  test: {
-    fake: {
-      temperature: 21,
-      humidity: 60,
+if (process.env.SENSOR_TESTING === "true") {
+  console.log("---> TESTING MODE ENABLED");
+  sensor.initialize({
+    test: {
+      fake: {
+        temperature: 21,
+        humidity: 60,
+      },
     },
-  },
-});
+  });
+}
 
 export const readSensorInformation = (sensorConfig) => {
   return new Promise((resolve, reject) => {
