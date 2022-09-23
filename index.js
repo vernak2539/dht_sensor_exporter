@@ -10,11 +10,16 @@ const cmdConfig = parseCmdConfig(process.argv);
 const config = generateConfig(cmdConfig);
 
 const startExporter = async () => {
-  outputFriendlyConfig(config);
+  try {
+    const promClient = await createPromClient(config.sensor);
 
-  const promClient = createPromClient(config.sensor);
+    outputFriendlyConfig(config);
 
-  server(config, promClient);
+    server(config, promClient);
+  } catch (err) {
+    console.log(err);
+    process.exit(1);
+  }
 };
 
 startExporter();

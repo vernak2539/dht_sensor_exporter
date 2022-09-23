@@ -26,3 +26,14 @@ export const readSensorInformation = (sensorConfig) => {
     );
   });
 };
+
+export const checkForSensor = (sensorConfig) => {
+  return new Promise((resolve, reject) => {
+    sensor.read(sensorConfig.type, sensorConfig.pin, (err) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve();
+    });
+  });
+};
