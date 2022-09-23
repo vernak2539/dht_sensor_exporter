@@ -7,6 +7,11 @@ jobs:
   build_and_publish:
     runs-on: ubuntu-latest
     steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - uses: MOZGIII/install-ldid-action@<action-version>
+        with:
+          tag: v2.1.5-procursus5
       - uses: actions/checkout@v2
       - uses: rymndhng/release-on-push-action@master
         env:
@@ -22,7 +27,6 @@ jobs:
       - name: Get Latest Release Tag
         uses: actions-ecosystem/action-get-latest-tag@v1
         id: get-latest-tag
-      # - run: make build_all VERSION=${{ steps.get-latest-tag.outputs.tag }}
       - name: Build Binary
         run: yarn build
       - name: Upload binaries to release
