@@ -7,28 +7,19 @@ jobs:
   build_and_publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-      - uses: MOZGIII/install-ldid-action@v1
-        with:
-          tag: v2.1.5-procursus5
       - uses: actions/checkout@v2
       - uses: rymndhng/release-on-push-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           bump_version_scheme: minor
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-go@v3
         with:
-          node-version: 14
-          cache: "yarn"
-      - name: Install Dependencies
-        run: yarn
+          go-version: "1.19"
       - name: Get Latest Release Tag
         uses: actions-ecosystem/action-get-latest-tag@v1
         id: get-latest-tag
-      - name: Build Binary
-        run: yarn build
+      - run: make build_all VERSION=${{ steps.get-latest-tag.outputs.tag }}
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
