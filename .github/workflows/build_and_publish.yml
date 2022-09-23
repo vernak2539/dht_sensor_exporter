@@ -7,10 +7,8 @@ jobs:
   build_and_publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Install GCC Support Materials
-        run: sudo apt-get install libc6-armel-cross libc6-dev-armel-cross binutils-arm-linux-gnueabi libncurses5-dev build-essential bison flex libssl-dev bc
-      - name: Install compilers
-        run: sudo apt-get install gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
+      - name: Install GCC
+        run: sudo apt-get install libc6-armel-cross libc6-dev-armel-cross binutils-arm-linux-gnueabi libncurses5-dev build-essential bison flex libssl-dev bc gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
       - uses: actions/checkout@v2
       - uses: rymndhng/release-on-push-action@master
         env:
