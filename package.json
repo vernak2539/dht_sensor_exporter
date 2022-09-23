@@ -25,8 +25,7 @@
   "pkg": {
     "targets": [
       "node14-linux-x64", 
-      "node14-linux-arm64",
-      "node14-linux-armv7"
+      "node14-linux-arm64"
     ],
     "outputPath": "build"
   }
