@@ -1,15 +1,37 @@
-export const DHT11 = {
-  TYPE: 11,
-  PIN: 17,
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
+
+export const parseCmdConfig = (processArgs) => {
+  return yargs(hideBin(processArgs))
+    .option("sensor", {
+      alias: "s",
+      describe: "sensor type",
+      choices: ["DHT11", "DHT22", "AM2302"],
+      default: "DHT11",
+    })
+    .option("port", {
+      alias: "p",
+      describe: "exporter server port",
+      default: 8765,
+    })
+    .coerce(["sensor"], (s) => s.toUpperCase())
+    .help("help").argv;
 };
 
-export const DHT22 = {
-  TYPE: 22,
-  PIN: 4,
-};
+export const generateConfig = (cmdConfig) => {
+  const exporterConfig = { port: cmdConfig.port, sensor: {} };
 
-export const AM2302 = DHT22;
+  switch (cmdConfig.sensor) {
+    case "DHT11":
+      exporterConfig.sensor = { type: 11, pin: 17 };
+      break;
+    case "DHT22":
+    case "AM2302":
+      exporterConfig.sensor = { type: 22, pin: 4 };
+      break;
+    default:
+      throw new Error("you should never get here due to defaults");
+  }
 
-export const SERVER = {
-  PORT: 5432,
+  return exporterConfig;
 };

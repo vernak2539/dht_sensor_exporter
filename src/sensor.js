@@ -1,5 +1,4 @@
 import sensor from "node-dht-sensor";
-import { DHT22 } from "./config.js";
 
 sensor.initialize({
   test: {
@@ -10,23 +9,27 @@ sensor.initialize({
   },
 });
 
-const readSensorInformation = (sensorType) => {
+const readSensorInformation = (sensorConfig) => {
   return new Promise((resolve, reject) => {
-    sensor.read(DHT22.TYPE, DHT22.PIN, (err, temperature, humidity) => {
-      if (err) {
-        return reject(err);
+    sensor.read(
+      sensorConfig.type,
+      sensorConfig.pin,
+      (err, temperature, humidity) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve({ temperature, humidity });
       }
-      resolve({ temperature, humidity });
-    });
+    );
   });
 };
 
-export const tempCollector = async () => {
-  const { temperature } = await readSensorInformation();
+export const tempCollector = (sensorConfig) => async () => {
+  const { temperature } = await readSensorInformation(sensorConfig);
   return temperature;
 };
 
-export const humdityCollector = async () => {
-  const { humidity } = await readSensorInformation();
+export const humdityCollector = (sensorConfig) => async () => {
+  const { humidity } = await readSensorInformation(sensorConfig);
   return humidity;
 };
