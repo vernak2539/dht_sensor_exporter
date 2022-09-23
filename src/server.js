@@ -17,9 +17,6 @@ const server = (config, promClient) => {
     res.end(`You are looking for http://localhost:${config.port}/metrics`);
   });
 
-  console.log(
-    `Server listening to ${config.port}, metrics exposed on /metrics endpoint`
-  );
   app.listen(config.port);
 };
 

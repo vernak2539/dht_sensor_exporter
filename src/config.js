@@ -19,19 +19,47 @@ export const parseCmdConfig = (processArgs) => {
 };
 
 export const generateConfig = (cmdConfig) => {
-  const exporterConfig = { port: cmdConfig.port, sensor: {} };
+  const exporterConfig = {
+    port: cmdConfig.port,
+    sensor: {
+      name: cmdConfig.sensor,
+    },
+  };
 
   switch (cmdConfig.sensor) {
     case "DHT11":
-      exporterConfig.sensor = { type: 11, pin: 17 };
+      exporterConfig.sensor = {
+        ...exporterConfig.sensor,
+        type: 11,
+        pin: 17,
+      };
       break;
     case "DHT22":
     case "AM2302":
-      exporterConfig.sensor = { type: 22, pin: 4 };
+      exporterConfig.sensor = {
+        ...exporterConfig.sensor,
+        type: 22,
+        pin: 4,
+      };
       break;
     default:
       throw new Error("you should never get here due to defaults");
   }
 
   return exporterConfig;
+};
+
+export const outputFriendlyConfig = ({ port, sensor }) => {
+  const tmpl = `
+DHT Sensor Exporter
+====================================
+Server: http://localhost:${port}
+Metrics Endpoint: http://localhost:${port}/metrics
+Sensor: ${sensor.name}
+  - Type: ${sensor.type}
+  - Pin: ${sensor.pin}
+
+It's Alive!!!
+`;
+  console.log(tmpl.trim());
 };
