@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
-      - uses: MOZGIII/install-ldid-action@<action-version>
+      - uses: MOZGIII/install-ldid-action@v1
         with:
           tag: v2.1.5-procursus5
       - uses: actions/checkout@v2
