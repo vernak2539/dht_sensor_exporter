@@ -1,4 +1,4 @@
-import express from "express";
+const express = require("express");
 
 const server = (config, promClient) => {
   const app = express();
@@ -20,4 +20,4 @@ const server = (config, promClient) => {
   app.listen(config.port);
 };
 
-export default server;
+module.exports = server;

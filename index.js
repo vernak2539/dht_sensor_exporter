@@ -1,10 +1,10 @@
-import server from "./src/server.js";
-import createPromClient from "./src/exporter.js";
-import {
+const server = require("./src/server");
+const createPromClient = require("./src/exporter");
+const {
   generateConfig,
   outputFriendlyConfig,
   parseCmdConfig,
-} from "./src/config.js";
+} = require("./src/config");
 
 const cmdConfig = parseCmdConfig(process.argv);
 const config = generateConfig(cmdConfig);

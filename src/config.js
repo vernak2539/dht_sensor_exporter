@@ -1,7 +1,7 @@
-import yargs from "yargs";
-import { hideBin } from "yargs/helpers";
+const yargs = require("yargs");
+const { hideBin } = require("yargs/helpers");
 
-export const parseCmdConfig = (processArgs) => {
+exports.parseCmdConfig = (processArgs) => {
   return yargs(hideBin(processArgs))
     .option("sensor", {
       alias: "s",
@@ -18,7 +18,7 @@ export const parseCmdConfig = (processArgs) => {
     .help("help").argv;
 };
 
-export const generateConfig = (cmdConfig) => {
+exports.generateConfig = (cmdConfig) => {
   const exporterConfig = {
     port: cmdConfig.port,
     sensor: {
@@ -49,7 +49,7 @@ export const generateConfig = (cmdConfig) => {
   return exporterConfig;
 };
 
-export const outputFriendlyConfig = ({ port, sensor }) => {
+exports.outputFriendlyConfig = ({ port, sensor }) => {
   const tmpl = `
 DHT Sensor Exporter
 ====================================

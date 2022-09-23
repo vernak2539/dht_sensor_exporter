@@ -3,11 +3,11 @@
   "version": "0.0.1",
   "description": "prometheus exporter for dht sensor information",
   "main": "index.js",
-  "type": "module",
   "author": "Alex Vernacchia",
   "license": "MIT",
   "private": true,
   "scripts": {
+    "dev": "SENSOR_TESTING=true node index.js",
     "build": "pkg -c package.json index.js"
   },
   "dependencies": {

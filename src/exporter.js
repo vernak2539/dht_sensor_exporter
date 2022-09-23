@@ -1,5 +1,5 @@
-import client from "prom-client";
-import { readSensorInformation, checkForSensor } from "./sensor.js";
+const client = require("prom-client");
+const { readSensorInformation, checkForSensor } = require("./sensor");
 
 const createPromClient = async (sensorConfig) => {
   try {
@@ -27,4 +27,4 @@ const createPromClient = async (sensorConfig) => {
   return client;
 };
 
-export default createPromClient;
+module.exports = createPromClient;

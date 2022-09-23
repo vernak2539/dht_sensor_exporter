@@ -1,4 +1,4 @@
-import sensor from "node-dht-sensor";
+const sensor = require("node-dht-sensor");
 
 if (process.env.SENSOR_TESTING === "true") {
   console.log("---> TESTING MODE ENABLED");
@@ -12,7 +12,7 @@ if (process.env.SENSOR_TESTING === "true") {
   });
 }
 
-export const readSensorInformation = (sensorConfig) => {
+exports.readSensorInformation = (sensorConfig) => {
   return new Promise((resolve, reject) => {
     sensor.read(
       sensorConfig.type,
@@ -27,7 +27,7 @@ export const readSensorInformation = (sensorConfig) => {
   });
 };
 
-export const checkForSensor = (sensorConfig) => {
+exports.checkForSensor = (sensorConfig) => {
   return new Promise((resolve, reject) => {
     sensor.read(sensorConfig.type, sensorConfig.pin, (err) => {
       if (err) {
