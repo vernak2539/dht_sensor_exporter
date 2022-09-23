@@ -9,7 +9,7 @@ sensor.initialize({
   },
 });
 
-const readSensorInformation = (sensorConfig) => {
+export const readSensorInformation = (sensorConfig) => {
   return new Promise((resolve, reject) => {
     sensor.read(
       sensorConfig.type,
@@ -22,14 +22,4 @@ const readSensorInformation = (sensorConfig) => {
       }
     );
   });
-};
-
-export const tempCollector = (sensorConfig) => async () => {
-  const { temperature } = await readSensorInformation(sensorConfig);
-  return temperature;
-};
-
-export const humdityCollector = (sensorConfig) => async () => {
-  const { humidity } = await readSensorInformation(sensorConfig);
-  return humidity;
 };

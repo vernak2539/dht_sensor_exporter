@@ -1,21 +1,17 @@
 import client from "prom-client";
+import { readSensorInformation } from "./sensor.js";
 
-const createPromClient = (tempCollector, humdityCollector) => {
-  const tempGauge = new client.Gauge({
-    name: "temperature",
-    help: "temperature",
+const createPromClient = (sensorConfig) => {
+  const sensorReadingGauge = new client.Gauge({
+    name: "dht_sensor_reading",
+    help: "reading from dht sensor",
+    labelNames: ["measurement"],
     async collect() {
-      const temp = await tempCollector();
-      this.set(temp);
-    },
-  });
-
-  const humidityGauge = new client.Gauge({
-    name: "humidity",
-    help: "humidity",
-    async collect() {
-      const humidity = await humdityCollector();
-      this.set(humidity);
+      const { temperature, humidity } = await readSensorInformation(
+        sensorConfig
+      );
+      this.labels("temperature").set(temperature);
+      this.labels("humidity").set(humidity);
     },
   });
 
