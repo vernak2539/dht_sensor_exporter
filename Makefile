@@ -11,7 +11,7 @@ build_all: build_pi_4
 
 .PHONY: build_pi_4
 build_pi_4:
-	GOOS=linux GOARCH=arm64 go build -o build/dht_sensor_exporter-$(VERSION)-linux-arm64 ./cmd/main.go
+	CC=arm-linux-gnueabi-gcc CGO_ENABLED=1 GOOS=linux GOARCH=arm64 go build -o build/dht_sensor_exporter-$(VERSION)-linux-arm64 ./cmd/main.go
 
 # .PHONY: build_pi_zero
 # build_pi_zero:
