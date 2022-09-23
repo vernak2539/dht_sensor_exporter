@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "dev": "SENSOR_TESTING=true node index.js",
-    "build": "pkg -c package.json index.js"
+    "build": "nexe --build index.js -t linux-x64 -o ./build"
   },
   "dependencies": {
     "express": "^4.18.1",
@@ -17,20 +17,12 @@
     "yargs": "^17.5.1"
   },
   "devDependencies": {
-    "pkg": "^5.8.0"
+    "nexe": "^4.0.0-rc.1"
   },
   "resolutions": {
     "pkg/pkg-fetch": "^3.2"
   },
   "engines": {
     "node": "^14"
-  },
-  "pkg": {
-    "targets": [
-      "node14-linux-x64", 
-      "node14-linux-arm64",
-      "node14-linux-armv7l"
-    ],
-    "outputPath": "build"
   }
 }
