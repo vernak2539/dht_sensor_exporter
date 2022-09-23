@@ -19,6 +19,9 @@
   "devDependencies": {
     "pkg": "^5.8.0"
   },
+  "resolutions": {
+    "pkg/pkg-fetch": "^3.2"
+  },
   "engines": {
     "node": "^14"
   },
