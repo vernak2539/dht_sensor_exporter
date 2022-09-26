@@ -1,5 +1,7 @@
 # DHT Sensor Exporter
 
+:rotating_light: **_Still WIP_**
+
 Export temperature and humidity readings to [Prometheus](https://prometheus.io/).
 
 ## Usage
