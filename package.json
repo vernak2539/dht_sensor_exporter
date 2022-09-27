@@ -15,5 +15,8 @@
     "node-dht-sensor": "^0.4.3",
     "prom-client": "^14.1.0",
     "yargs": "^17.5.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1"
   }
 }
