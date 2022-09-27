@@ -1,11 +1,11 @@
-import server from "./src/server.js";
-import createPromClient from "./src/exporter.js";
+import server from "./server.js";
+import createPromClient from "./exporter.js";
 import {
   generateConfig,
   outputFriendlyConfig,
   parseCmdConfig,
-} from "./src/config.js";
-import { initSensorTesting } from "./src/sensor.js";
+} from "./config.js";
+import { initSensorTesting } from "./sensor.js";
 
 const cmdConfig = parseCmdConfig(process.argv);
 const TEST_MODE = cmdConfig.testMode === "on";
