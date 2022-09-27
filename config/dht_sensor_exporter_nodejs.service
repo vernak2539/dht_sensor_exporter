@@ -5,3 +5,6 @@ Description=Nodejs Prometheus exporter for DHT sensor information
 User=dht_sensor_exporter
 Type=simple
 ExecStart=node /opt/dht_sensor_exporter_nodejs/index.js
+
+[Install]
+WantedBy=multi-user.target
