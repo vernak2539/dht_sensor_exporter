@@ -1,32 +1,13 @@
-import server from "./src/server.js";
-import createPromClient from "./src/exporter.js";
-import {
-  generateConfig,
-  outputFriendlyConfig,
-  parseCmdConfig,
-} from "./src/config.js";
-import { initSensorTesting } from "./src/sensor.js";
+import * as Sentry from "@sentry/node";
+import "@sentry/tracing";
+import start from "src/start.js";
 
-const cmdConfig = parseCmdConfig(process.argv);
-const TEST_MODE = cmdConfig.testMode === "on";
+Sentry.init({
+  dsn: "https://3f7afb1bbecf4f83bbff2b00c65a1210@o1429321.ingest.sentry.io/6779964",
 
-if (TEST_MODE) {
-  initSensorTesting();
-}
+  // We recommend adjusting this value in production, or using tracesSampler
+  // for finer control
+  tracesSampleRate: 1.0,
+});
 
-const config = generateConfig(cmdConfig);
-
-const startExporter = async () => {
-  try {
-    const promClient = await createPromClient(config.sensor);
-
-    outputFriendlyConfig(config, TEST_MODE);
-
-    server(config, promClient);
-  } catch (err) {
-    console.log(err);
-    process.exit(1);
-  }
-};
-
-startExporter();
+start();
