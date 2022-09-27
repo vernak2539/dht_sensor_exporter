@@ -1,7 +1,6 @@
 import sensor from "node-dht-sensor";
 
-if (process.env.SENSOR_TESTING === "true") {
-  console.log("---> TESTING MODE ENABLED");
+export const initSensorTesting = () => {
   sensor.initialize({
     test: {
       fake: {
@@ -10,7 +9,7 @@ if (process.env.SENSOR_TESTING === "true") {
       },
     },
   });
-}
+};
 
 export const readSensorInformation = (sensorConfig) => {
   return new Promise((resolve, reject) => {

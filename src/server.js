@@ -14,7 +14,12 @@ const server = (config, promClient) => {
 
   app.get("*", (req, res) => {
     res.set("Content-Type", promClient.register.contentType);
-    res.end(`You are looking for http://localhost:${config.port}/metrics`);
+    res.set("Content-Type", "text/html");
+    res.send(
+      Buffer.from(
+        `You are looking for <a href="http://localhost:${config.port}/metrics">/metrics</a>`
+      )
+    );
   });
 
   app.listen(config.port);
