@@ -3,56 +3,52 @@ import { hideBin } from "yargs/helpers";
 
 export const parseCmdConfig = (processArgs) => {
   return yargs(hideBin(processArgs))
-    .option("sensor", {
-      alias: "s",
-      describe: "sensor type",
-      choices: ["DHT11", "DHT22", "AM2302"],
-      default: "DHT11",
+    .options({
+      pin: {
+        alias: "p",
+        description: "GPIO pin providing data to DHT sensor",
+        default: 4,
+      },
+      sensor: {
+        alias: "s",
+        description: "Sensor type being used (DHTxx)",
+        choices: [11, 22],
+        default: 22,
+      },
+      "server-port": {
+        alias: "sp",
+        describe: "exporter server port",
+        default: 8765,
+      },
+      "test-mode": {
+        alias: "t",
+        description: "Run in test mode with sensor values defaulted",
+        choices: ["on", "off"],
+        default: "off",
+      },
     })
-    .option("port", {
-      alias: "p",
-      describe: "exporter server port",
-      default: 8765,
-    })
-    .coerce(["sensor"], (s) => s.toUpperCase())
     .help("help").argv;
 };
 
 export const generateConfig = (cmdConfig) => {
   const exporterConfig = {
-    port: cmdConfig.port,
+    port: cmdConfig.serverPort,
     sensor: {
-      name: cmdConfig.sensor,
+      name: `DHT${cmdConfig.sensor}`,
+      pin: cmdConfig.pin,
+      type: cmdConfig.sensor,
     },
   };
-
-  switch (cmdConfig.sensor) {
-    case "DHT11":
-      exporterConfig.sensor = {
-        ...exporterConfig.sensor,
-        type: 11,
-        pin: 17,
-      };
-      break;
-    case "DHT22":
-    case "AM2302":
-      exporterConfig.sensor = {
-        ...exporterConfig.sensor,
-        type: 22,
-        pin: 4,
-      };
-      break;
-    default:
-      throw new Error("you should never get here due to defaults");
-  }
 
   return exporterConfig;
 };
 
-export const outputFriendlyConfig = ({ port, sensor }) => {
+export const outputFriendlyConfig = (config, TEST_MODE) => {
+  const { port, sensor } = config;
   const tmpl = `
 DHT Sensor Exporter
 ====================================
+TEST MODE: ${TEST_MODE}
 Server: http://localhost:${port}
 Metrics Endpoint: http://localhost:${port}/metrics
 Sensor: ${sensor.name}
