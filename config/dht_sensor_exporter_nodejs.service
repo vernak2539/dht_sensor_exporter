@@ -1,0 +1,7 @@
+[Unit]
+Description=Nodejs Prometheus exporter for DHT sensor information
+
+[Service]
+User=dht_sensor_exporter
+Type=simple
+ExecStart=node /opt/dht_sensor_exporter_nodejs/index.js
