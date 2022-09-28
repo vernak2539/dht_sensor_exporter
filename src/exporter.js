@@ -1,4 +1,5 @@
 import client from "prom-client";
+import Sentry from "@sentry/node";
 import { readSensorInformation, checkForSensor } from "./sensor.js";
 
 const createPromClient = async (sensorConfig) => {
@@ -16,11 +17,17 @@ const createPromClient = async (sensorConfig) => {
     help: "reading from dht sensor",
     labelNames: ["measurement"],
     async collect() {
-      const { temperature, humidity } = await readSensorInformation(
-        sensorConfig
-      );
-      this.labels("temperature").set(temperature);
-      this.labels("humidity").set(humidity);
+      Sentry.setExtras(sensorConfig);
+
+      try {
+        const { temperature, humidity } = await readSensorInformation(
+          sensorConfig
+        );
+        this.labels("temperature").set(temperature);
+        this.labels("humidity").set(humidity);
+      } catch (err) {
+        Sentry.captureException(err);
+      }
     },
   });
 
