@@ -4,6 +4,10 @@
 
 * `npm rebuild` to rebuild libraries for architecture
 
+## Environment Variables
+
+If you'd like to use sentry for reporting, add the DSN using the `SENTRY_DSN` environment variable.
+
 ## systemd
 
 ```shell
