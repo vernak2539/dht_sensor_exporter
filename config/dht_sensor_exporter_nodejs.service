@@ -6,6 +6,7 @@ User=pi
 Type=simple
 Restart=on-failure
 RestartSec=5s
+Environment=SENTRY_DSN=my_sentry_dsn
 ExecStart=node /opt/dht_sensor_exporter_nodejs/index.js
 
 [Install]
