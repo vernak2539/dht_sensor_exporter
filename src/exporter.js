@@ -26,7 +26,9 @@ const createPromClient = async (sensorConfig) => {
         this.labels("temperature").set(temperature);
         this.labels("humidity").set(humidity);
       } catch (err) {
-        Sentry.captureException(err);
+        if (err.message !== "failed to read sensor") {
+          Sentry.captureException(err);
+        }
       }
     },
   });
